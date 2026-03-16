@@ -1,0 +1,20 @@
+<table cellpadding="0" cellspacing="0">
+  <tr>
+    <td valign="top" width="102">
+      <a href="https://bsky.app/profile/ay-man.com">
+        <img src="./assets/link-bluesky.svg" alt="bluesky" width="100" height="17" align="left">
+      </a>
+      <a href="https://github.com/ay-mxn">
+        <img src="./assets/link-github.svg" alt="github" width="100" height="17" align="left">
+      </a>
+      <a href="https://linkedin.com/in/aymanbolad">
+        <img src="./assets/link-linkedin.svg" alt="linkedin" width="100" height="17" align="left">
+      </a>
+    </td>
+    <td valign="top" width="100%">
+      <img src="./assets/top.svg" width="100%" height="55" align="left" alt="">
+    </td>
+  </tr>
+</table>
+<img src="./assets/fallback.svg" alt="" width="420" align="left">
+<img src="./assets/main.svg" alt="researcher, exploring the world of molecular systems and genomic landscapes." width="100%" height="280" align="left">
