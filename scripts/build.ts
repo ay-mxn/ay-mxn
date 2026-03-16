@@ -82,7 +82,7 @@ async function build() {
     sizes.reduce((acc, size) => acc + size[0] + yearOptions.gap, 0) - yearOptions.gap;
 
   const mainSvg = main({
-    height: 380,
+    height: 440,
     years,
     sizes,
     length,
