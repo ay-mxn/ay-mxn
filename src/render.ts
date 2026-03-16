@@ -15,7 +15,7 @@ export type Year = {
 
 const C = {
   text: '#c4a478',
-  dot0: '#28231e',
+  dot0: '#171B21',
   dot1: '#3d3028',
   dot2: '#6b5038',
   dot3: '#9a7850',

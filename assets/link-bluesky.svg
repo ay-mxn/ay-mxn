@@ -23,7 +23,7 @@
 
   :root {
     --color-text: #c4a478;
-    --color-dot-0: #28231e;
+    --color-dot-0: #171B21;
     --color-dot-1: #3d3028;
     --color-dot-2: #6b5038;
     --color-dot-3: #9a7850;
@@ -129,7 +129,7 @@
       animation-duration: 5s;
       animation-timing-function: ease-in-out;
       animation-iteration-count: infinite;
-      animation-delay: 1.0s;
+      animation-delay: 4.5s;
     }
     @keyframes rotate {
       0% { transform: rotate(0deg); }
@@ -139,7 +139,7 @@
         
     <main class="wrapper">
       <a class="link fade-in">
-        <div class="link__label shine" style="animation-delay: 3.4s">bluesky</div>
+        <div class="link__label shine" style="animation-delay: 2.3s">bluesky</div>
         <div class="link__arrow">↗</div>
       </a>
     </main>

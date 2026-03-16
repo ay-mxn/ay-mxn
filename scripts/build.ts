@@ -46,11 +46,11 @@ async function ensureFontFiles() {
 
 async function build() {
   await ensureFontFiles();
-  const { fallback, link, main, top } = await import('../src/render.js');
+  const { link, main, top } = await import('../src/render.js');
 
   await mkdir(ASSETS, { recursive: true });
 
-  // Top bar: links + name/title/org
+  // Top bar: name/title/org
   const topSvg = top({ height: 20 });
   await writeFile(`${ASSETS}/top.svg`, topSvg);
   console.log('  ✓ top.svg');
@@ -62,11 +62,6 @@ async function build() {
     await writeFile(`${ASSETS}/link-${l.label}.svg`, linkSvg);
     console.log(`  ✓ link-${l.label}.svg`);
   }
-
-  // Fallback (Firefox)
-  const fallbackSvg = fallback({ height: 180, width: 420 });
-  await writeFile(`${ASSETS}/fallback.svg`, fallbackSvg);
-  console.log('  ✓ fallback.svg');
 
   // Main: bio + stats + contribution graph
   const years = (data.years as Year[]).slice(0, MAX_YEARS);
