@@ -5,7 +5,7 @@
   "type": "module",
   "packageManager": "bun@1.2.0",
   "scripts": {
-    "stats": "bunx tsm --env-file .env scripts/stats.ts",
+    "stats": "if [ -f .env ]; then bunx tsm --env-file .env scripts/stats.ts; else bunx tsm scripts/stats.ts; fi",
     "build": "bunx tsm scripts/build.ts",
     "go": "bun run stats && bun run build",
     "format": "prettier --write ./{src,scripts}/*"
