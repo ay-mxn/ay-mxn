@@ -142,60 +142,42 @@ export const top = (props: { height: number }) => {
     .wrapper {
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
+      align-items: center;
       padding: 0 2px;
     }
 
-    .links {
+    .reach {
       --delay: var(--animate-in-links-delay);
-      display: flex;
-      flex-direction: column;
-    }
-    .link-item {
-      font-family: 'Writer', Georgia, serif;
-      font-size: 12px;
-      display: flex;
-      align-items: center;
-      gap: 2px;
-      line-height: 17px;
-    }
-    .link-label {
-      animation-delay: ${Math.random() * 10}s;
-    }
-    .link-arrow {
+      font-family: 'Departure-Mono', monospace;
       font-size: 9px;
-      display: inline-block;
-      animation-name: rotate;
-      animation-duration: 5s;
-      animation-timing-function: ease-in-out;
-      animation-iteration-count: infinite;
-    }
-    @keyframes rotate {
-      0% { transform: rotate(0deg); }
-      10%, 100% { transform: rotate(360deg); }
+      opacity: 0.4;
+      white-space: nowrap;
     }
 
-    .orginfo {
+    .meta {
       --delay: var(--animate-in-org-delay);
-      text-align: right;
-      line-height: 17px;
-    }
-    .orginfo-row {
       display: flex;
       align-items: baseline;
+      gap: 12px;
+      flex-wrap: wrap;
       justify-content: flex-end;
-      gap: 5px;
     }
-    .orginfo-label {
+    .meta-item {
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+      white-space: nowrap;
+    }
+    .meta-label {
       font-family: 'Departure-Mono', monospace;
       font-size: 9px;
       opacity: 0.4;
     }
-    .orginfo-val {
+    .meta-val {
       font-family: 'Writer', Georgia, serif;
-      font-size: 12px;
+      font-size: 11px;
     }
-    .orginfo-dot {
+    .meta-dot {
       width: 3px; height: 3px;
       display: inline-block;
       margin-right: 2px;
@@ -205,31 +187,22 @@ export const top = (props: { height: number }) => {
     .arabic { font-family: 'Arabic', serif; }
   `;
 
-  const linksHtml = LINKS.map((l, i) => /* html */ `
-    <div class="link-item">
-      <span class="link-label shine" style="animation-delay: ${i * 2 + 0.3}s">${l.label}</span>
-      <span class="link-arrow" style="animation-delay: ${(Math.random() * 5).toFixed(1)}s">↗</span>
-    </div>
-  `).join('');
-
   const html = /* html */ `
     <div class="wrapper">
-      <div class="links fade-in">
-        ${linksHtml}
-      </div>
-      <div class="orginfo fade-in">
-        <div class="orginfo-row">
-          <span class="orginfo-label"><span class="orginfo-dot"></span>name</span>
-          <span class="orginfo-val">${IDENTITY.name} <span class="arabic">⌊${IDENTITY.nameArabic}⌋</span></span>
-        </div>
-        <div class="orginfo-row">
-          <span class="orginfo-label"><span class="orginfo-dot"></span>title</span>
-          <span class="orginfo-val">${IDENTITY.title}</span>
-        </div>
-        <div class="orginfo-row">
-          <span class="orginfo-label"><span class="orginfo-dot"></span>org</span>
-          <span class="orginfo-val">${IDENTITY.org}</span>
-        </div>
+      <div class="reach fade-in">links</div>
+      <div class="meta fade-in">
+        <span class="meta-item">
+          <span class="meta-label"><span class="meta-dot"></span>name</span>
+          <span class="meta-val">${IDENTITY.name} <span class="arabic">⌊${IDENTITY.nameArabic}⌋</span></span>
+        </span>
+        <span class="meta-item">
+          <span class="meta-label"><span class="meta-dot"></span>title</span>
+          <span class="meta-val">${IDENTITY.title}</span>
+        </span>
+        <span class="meta-item">
+          <span class="meta-label"><span class="meta-dot"></span>org</span>
+          <span class="meta-val">${IDENTITY.org}</span>
+        </span>
       </div>
     </div>
   `;
