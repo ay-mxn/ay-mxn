@@ -103,7 +103,7 @@
     :root {
       --size-height: 17;
       --size-width: 100;
-      --i: 1;
+      --i: 2;
     }
 
     .wrapper {
