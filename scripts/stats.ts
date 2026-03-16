@@ -20,7 +20,7 @@ type Contribution = {
 
 type GHResponse = {
   data: {
-    user: {
+    viewer: {
       contributionsCollection: {
         contributionCalendar: {
           totalContributions: number;
@@ -36,9 +36,12 @@ type GHResponse = {
 
 async function request(date: { from?: Date; to?: Date }) {
   const body = {
-    query: `query ($username: String!, $from: DateTime, $to: DateTime) {
-      user(login: $username) {
-        contributionsCollection(from: $from, to: $to, includePrivateContributions: true) {
+    // Use `viewer` instead of `user(login:)` — this returns the authenticated
+    // user's own data, which includes private and org contributions automatically.
+    // Requires a CLASSIC PAT with `read:user` scope (fine-grained PATs don't support GraphQL).
+    query: `query ($from: DateTime, $to: DateTime) {
+      viewer {
+        contributionsCollection(from: $from, to: $to) {
           contributionCalendar {
             totalContributions
             weeks {
@@ -53,7 +56,6 @@ async function request(date: { from?: Date; to?: Date }) {
       }
     }`,
     variables: {
-      username: GITHUB_USERNAME,
       from: date.from?.toISOString(),
       to: date.to?.toISOString(),
     },
@@ -73,7 +75,7 @@ async function request(date: { from?: Date; to?: Date }) {
     throw new Error(`GitHub GraphQL error: ${response.errors.map((e) => e.message).join('; ')}`);
   }
 
-  const calendar = response.data.user.contributionsCollection.contributionCalendar;
+  const calendar = response.data.viewer.contributionsCollection.contributionCalendar;
   return { weeks: calendar.weeks, contributions: calendar.totalContributions };
 }
 

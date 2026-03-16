@@ -148,10 +148,20 @@ export const top = (props: { height: number }) => {
 
     .reach {
       --delay: var(--animate-in-links-delay);
+      white-space: nowrap;
+    }
+    .reach-inner {
       font-family: 'Departure-Mono', monospace;
       font-size: 9px;
       opacity: 0.4;
-      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
+    .reach-dot {
+      width: 3px; height: 3px;
+      display: inline-block;
+      background: var(--color-text);
     }
 
     .meta {
@@ -189,7 +199,7 @@ export const top = (props: { height: number }) => {
 
   const html = /* html */ `
     <div class="wrapper">
-      <div class="reach fade-in">links</div>
+      <div class="reach fade-in"><span class="reach-inner"><span class="reach-dot"></span>links</span></div>
       <div class="meta fade-in">
         <span class="meta-item">
           <span class="meta-label"><span class="meta-dot"></span>name</span>
@@ -297,6 +307,7 @@ export const main = (props: MainProps) => {
       display: grid;
       grid-template-columns: repeat(6, 1fr);
       grid-template-rows: 1fr auto;
+      row-gap: 10px;
       padding: 0 2px 4px;
     }
 

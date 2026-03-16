@@ -10,7 +10,7 @@ type Year = {
 
 const ASSETS = 'assets';
 
-const dotOptions = { rows: 6, size: 14, gap: 3 };
+const dotOptions = { rows: 6, size: 24, gap: 5 };
 const yearOptions = { gap: 5 };
 const MAX_YEARS = 3;
 
@@ -82,7 +82,7 @@ async function build() {
     sizes.reduce((acc, size) => acc + size[0] + yearOptions.gap, 0) - yearOptions.gap;
 
   const mainSvg = main({
-    height: 280,
+    height: 320,
     years,
     sizes,
     length,
