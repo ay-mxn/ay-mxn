@@ -15,24 +15,25 @@ const fontBase64FromDir = (relativeDir: string, extension: string) => {
   return readFileSync(new URL(`${relativeDir}/${file}`, import.meta.url)).toString('base64');
 };
 
-const WRITER_OTF = fontBase64FromDir('../fonts/writer', '.otf');
-const DEPARTURE_WOFF = fontBase64FromDir('../fonts/departure', '.woff');
-const ARABIC_TTF = fontBase64FromDir('../fonts/arabic', '.ttf');
+// Use subsetted woff2 files — ~26KB total instead of ~260KB
+const WRITER_WOFF2 = fontBase64FromDir('../fonts/writer', '.woff2');
+const DEPARTURE_WOFF2 = fontBase64FromDir('../fonts/departure', '.woff2');
+const ARABIC_WOFF2 = fontBase64FromDir('../fonts/arabic', '.woff2');
 
 export const fontFaces = /* css */ `
   @font-face {
     font-family: 'Writer';
-    src: url(data:font/otf;base64,${WRITER_OTF}) format('opentype');
+    src: url(data:font/woff2;base64,${WRITER_WOFF2}) format('woff2');
     font-display: swap;
   }
   @font-face {
     font-family: 'Departure-Mono';
-    src: url(data:font/woff;base64,${DEPARTURE_WOFF}) format('woff');
+    src: url(data:font/woff2;base64,${DEPARTURE_WOFF2}) format('woff2');
     font-display: swap;
   }
   @font-face {
     font-family: 'Arabic';
-    src: url(data:font/ttf;base64,${ARABIC_TTF}) format('truetype');
+    src: url(data:font/woff2;base64,${ARABIC_WOFF2}) format('woff2');
     font-display: swap;
   }
 `;

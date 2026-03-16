@@ -10,17 +10,17 @@ export type Year = {
 };
 
 // ── Color Palette ──────────────────────────────────────────────
-// Light mode only — transparent background
+// Dark mode — transparent background
 // Extracted from PFP + banner images
 
 const C = {
-  text: '#5e3425',
-  dot0: '#ebe5dc',
-  dot1: '#d4bfa6',
-  dot2: '#a87858',
-  dot3: '#5e3425',
-  dot4: '#4f2623',
-  dotBorder: 'rgba(0,0,0,0.05)',
+  text: '#c4a478',
+  dot0: '#28231e',
+  dot1: '#3d3028',
+  dot2: '#6b5038',
+  dot3: '#9a7850',
+  dot4: '#c4a478',
+  dotBorder: 'rgba(255,255,255,0.04)',
 } as const;
 
 // ── Breakpoints ────────────────────────────────────────────────
@@ -141,20 +141,20 @@ export const top = (props: { height: number }) => {
 
     .wrapper {
       display: flex;
-      justify-content: flex-end;
+      justify-content: flex-start;
       align-items: flex-start;
       padding: 0 2px;
     }
 
     .orginfo {
       --delay: var(--animate-in-org-delay);
-      text-align: right;
+      text-align: left;
       line-height: 17px;
     }
     .orginfo-row {
       display: flex;
       align-items: baseline;
-      justify-content: flex-end;
+      justify-content: flex-start;
       gap: 5px;
     }
     .orginfo-label {

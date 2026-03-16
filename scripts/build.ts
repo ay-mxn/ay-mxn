@@ -15,9 +15,9 @@ const yearOptions = { gap: 5 };
 const MAX_YEARS = 3;
 
 const FONT_REQUIREMENTS = [
-  { dir: 'fonts/writer', ext: '.otf' },
-  { dir: 'fonts/departure', ext: '.woff' },
-  { dir: 'fonts/arabic', ext: '.ttf' },
+  { dir: 'fonts/writer', ext: '.woff2' },
+  { dir: 'fonts/departure', ext: '.woff2' },
+  { dir: 'fonts/arabic', ext: '.woff2' },
 ] as const;
 
 async function ensureFontFiles() {
