@@ -129,7 +129,11 @@
       animation-duration: 5s;
       animation-timing-function: ease-in-out;
       animation-iteration-count: infinite;
+<<<<<<< HEAD
       animation-delay: 3.6s;
+=======
+      animation-delay: 4.1s;
+>>>>>>> d0954b2b294421c76f61b627c34eae0d5199c686
     }
     @keyframes rotate {
       0% { transform: rotate(0deg); }
@@ -139,7 +143,11 @@
         
     <main class="wrapper">
       <a class="link fade-in">
+<<<<<<< HEAD
         <div class="link__label shine" style="animation-delay: 3.4s">github</div>
+=======
+        <div class="link__label shine" style="animation-delay: 4.3s">github</div>
+>>>>>>> d0954b2b294421c76f61b627c34eae0d5199c686
         <div class="link__arrow">↗</div>
       </a>
     </main>
