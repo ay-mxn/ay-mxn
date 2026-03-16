@@ -7,8 +7,8 @@ previously blessed vehicles with eyes and ears at vail.`;
 
 export const LINKS = [
   { label: 'bluesky', url: 'https://bsky.app/profile/ay-man.com' },
-  { label: 'github', url: 'https://github.com/ay-mxn' },
   { label: 'linkedin', url: 'https://linkedin.com/in/aymanbolad' },
+  { label: 'website', url: 'https://ay-man.com' },
 ] as const;
 
 export const IDENTITY = {
