@@ -1,5 +1,5 @@
 import { fontFaces } from './fonts.js';
-import { BIO, IDENTITY } from './content.js';
+import { BIO, LINKS, IDENTITY } from './content.js';
 
 // ── Types ──────────────────────────────────────────────────────
 
@@ -141,9 +141,38 @@ export const top = (props: { height: number }) => {
 
     .wrapper {
       display: flex;
-      justify-content: flex-end;
+      justify-content: space-between;
       align-items: flex-start;
       padding: 0 2px;
+    }
+
+    .links {
+      --delay: var(--animate-in-links-delay);
+      display: flex;
+      flex-direction: column;
+    }
+    .link-item {
+      font-family: 'Writer', Georgia, serif;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      line-height: 17px;
+    }
+    .link-label {
+      animation-delay: ${Math.random() * 10}s;
+    }
+    .link-arrow {
+      font-size: 9px;
+      display: inline-block;
+      animation-name: rotate;
+      animation-duration: 5s;
+      animation-timing-function: ease-in-out;
+      animation-iteration-count: infinite;
+    }
+    @keyframes rotate {
+      0% { transform: rotate(0deg); }
+      10%, 100% { transform: rotate(360deg); }
     }
 
     .orginfo {
@@ -176,8 +205,18 @@ export const top = (props: { height: number }) => {
     .arabic { font-family: 'Arabic', serif; }
   `;
 
+  const linksHtml = LINKS.map((l, i) => /* html */ `
+    <div class="link-item">
+      <span class="link-label shine" style="animation-delay: ${i * 2 + 0.3}s">${l.label}</span>
+      <span class="link-arrow" style="animation-delay: ${(Math.random() * 5).toFixed(1)}s">↗</span>
+    </div>
+  `).join('');
+
   const html = /* html */ `
     <div class="wrapper">
+      <div class="links fade-in">
+        ${linksHtml}
+      </div>
       <div class="orginfo fade-in">
         <div class="orginfo-row">
           <span class="orginfo-label"><span class="orginfo-dot"></span>name</span>
@@ -284,7 +323,7 @@ export const main = (props: MainProps) => {
     .wrapper {
       display: grid;
       grid-template-columns: repeat(6, 1fr);
-      grid-template-rows: auto auto;
+      grid-template-rows: 1fr auto;
       padding: 0 2px 4px;
     }
 
@@ -293,7 +332,7 @@ export const main = (props: MainProps) => {
       --delay: var(--animate-in-stats-delay);
       grid-column: 1 / 3;
       grid-row: 1;
-      align-self: start;
+      align-self: end;
       padding-bottom: 6px;
       font-family: 'Departure-Mono', monospace;
       font-size: 11px;
@@ -336,7 +375,7 @@ export const main = (props: MainProps) => {
       font-size: 13px;
       font-weight: 300;
       line-height: 1.55;
-      align-self: start;
+      align-self: end;
       padding-bottom: 6px;
       overflow-wrap: break-word;
       word-wrap: break-word;

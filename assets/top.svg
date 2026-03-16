@@ -104,9 +104,38 @@
 
     .wrapper {
       display: flex;
-      justify-content: flex-end;
+      justify-content: space-between;
       align-items: flex-start;
       padding: 0 2px;
+    }
+
+    .links {
+      --delay: var(--animate-in-links-delay);
+      display: flex;
+      flex-direction: column;
+    }
+    .link-item {
+      font-family: 'Writer', Georgia, serif;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      line-height: 17px;
+    }
+    .link-label {
+      animation-delay: 2.615117951443197s;
+    }
+    .link-arrow {
+      font-size: 9px;
+      display: inline-block;
+      animation-name: rotate;
+      animation-duration: 5s;
+      animation-timing-function: ease-in-out;
+      animation-iteration-count: infinite;
+    }
+    @keyframes rotate {
+      0% { transform: rotate(0deg); }
+      10%, 100% { transform: rotate(360deg); }
     }
 
     .orginfo {
@@ -140,6 +169,24 @@
   </style>
         
     <div class="wrapper">
+      <div class="links fade-in">
+        
+    <div class="link-item">
+      <span class="link-label shine" style="animation-delay: 0.3s">bluesky</span>
+      <span class="link-arrow" style="animation-delay: 0.4s">↗</span>
+    </div>
+  
+    <div class="link-item">
+      <span class="link-label shine" style="animation-delay: 2.3s">github</span>
+      <span class="link-arrow" style="animation-delay: 1.7s">↗</span>
+    </div>
+  
+    <div class="link-item">
+      <span class="link-label shine" style="animation-delay: 4.3s">linkedin</span>
+      <span class="link-arrow" style="animation-delay: 3.2s">↗</span>
+    </div>
+  
+      </div>
       <div class="orginfo fade-in">
         <div class="orginfo-row">
           <span class="orginfo-label"><span class="orginfo-dot"></span>name</span>
