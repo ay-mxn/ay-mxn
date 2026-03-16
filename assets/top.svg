@@ -104,20 +104,20 @@
 
     .wrapper {
       display: flex;
-      justify-content: flex-start;
+      justify-content: flex-end;
       align-items: flex-start;
       padding: 0 2px;
     }
 
     .orginfo {
       --delay: var(--animate-in-org-delay);
-      text-align: left;
+      text-align: right;
       line-height: 17px;
     }
     .orginfo-row {
       display: flex;
       align-items: baseline;
-      justify-content: flex-start;
+      justify-content: flex-end;
       gap: 5px;
     }
     .orginfo-label {

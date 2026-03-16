@@ -141,20 +141,20 @@ export const top = (props: { height: number }) => {
 
     .wrapper {
       display: flex;
-      justify-content: flex-start;
+      justify-content: flex-end;
       align-items: flex-start;
       padding: 0 2px;
     }
 
     .orginfo {
       --delay: var(--animate-in-org-delay);
-      text-align: left;
+      text-align: right;
       line-height: 17px;
     }
     .orginfo-row {
       display: flex;
       align-items: baseline;
-      justify-content: flex-start;
+      justify-content: flex-end;
       gap: 5px;
     }
     .orginfo-label {
@@ -338,6 +338,8 @@ export const main = (props: MainProps) => {
       line-height: 1.55;
       align-self: start;
       padding-bottom: 6px;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
     }
     .intro span {
       contain: content;
@@ -441,12 +443,16 @@ export const main = (props: MainProps) => {
   const fmt = (n: number) => n.toLocaleString('en-US');
 
   // Character-by-character fade-in
+  // Spaces are output raw (not inside spans) so the browser can word-wrap
   let charIdx = 0;
   const bioChars = BIO.split('\n').map((line, li, arr) => {
     if (line === '') return '<br/>';
     const spans = line.split('').map((c) => {
-      const ch = c === ' ' ? '&#160;' : c;
-      const s = `<span class="fade-in" style="--i: ${charIdx};">${ch}</span>`;
+      if (c === ' ') {
+        charIdx++;
+        return ' ';
+      }
+      const s = `<span class="fade-in" style="--i: ${charIdx};">${c}</span>`;
       charIdx++;
       return s;
     }).join('');
@@ -533,8 +539,8 @@ export const fallback = (props: { height: number; width: number }) => {
   let charIdx = 0;
   const bioChars = BIO.split('').map((c) => {
     if (c === '\n') return '<br/>';
-    const ch = c === ' ' ? '&#160;' : c;
-    return `<span class="fade-in" style="--i: ${charIdx++};">${ch}</span>`;
+    if (c === ' ') { charIdx++; return ' '; }
+    return `<span class="fade-in" style="--i: ${charIdx++};">${c}</span>`;
   }).join('');
 
   const html = /* html */ `
