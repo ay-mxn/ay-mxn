@@ -139,7 +139,7 @@
         
     <main class="wrapper">
       <a class="link fade-in">
-        <div class="link__label shine" style="animation-delay: 6.6s">bluesky</div>
+        <div class="link__label shine" style="animation-delay: 4.2s">bluesky</div>
         <div class="link__arrow">↗</div>
       </a>
     </main>
