@@ -129,7 +129,7 @@
       animation-duration: 5s;
       animation-timing-function: ease-in-out;
       animation-iteration-count: infinite;
-      animation-delay: 2.2s;
+      animation-delay: 2.3s;
     }
     @keyframes rotate {
       0% { transform: rotate(0deg); }
@@ -139,7 +139,7 @@
         
     <main class="wrapper">
       <a class="link fade-in">
-        <div class="link__label shine" style="animation-delay: 5.5s">website</div>
+        <div class="link__label shine" style="animation-delay: 9.3s">website</div>
         <div class="link__arrow">↗</div>
       </a>
     </main>
