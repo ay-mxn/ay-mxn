@@ -16,16 +16,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v2
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@stable
         with:
-          bun-version: 1.2.0
+          components: rustfmt
 
-      - name: Install JS dependencies
-        run: bun install
+      - name: Check Rust scaffold
+        run: cargo fmt --check && cargo check
 
-      - name: Build stats and SVGs
-        run: bun run go
+      - name: Run migration placeholder
+        run: cargo run --release -- go
 
       - name: Commit and push updates
         run: |
