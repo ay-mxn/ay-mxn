@@ -3,4 +3,17 @@ name = "ay-readme"
 version = "0.1.0"
 edition = "2024"
 
+[profile.release]
+overflow-checks = true
+
+[lints.rust]
+unsafe_op_in_unsafe_fn = "deny"
+unused_must_use = "deny"
+
+[lints.clippy]
+all = "deny"
+pedantic = "warn"
+cast_possible_truncation = "warn"
+undocumented_unsafe_blocks = "deny"
+
 [dependencies]
