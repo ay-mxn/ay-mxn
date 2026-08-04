@@ -17,3 +17,4 @@ cast_possible_truncation = "warn"
 undocumented_unsafe_blocks = "deny"
 
 [dependencies]
+base64 = "0.22.1"
