@@ -58,11 +58,35 @@ pub fn render_link_svg(
     height_px: u32,
     index: usize,
 ) -> String {
-    let styles = shared_styles(font_data);
-    let _ = deterministic_delay_tenths(index, 50);
-    let html = label;
+    let width_text = width_px.to_string();
+    let height_text = height_px.to_string();
+    let arrow_delay_s = deterministic_delay_tenths(index * 13, 50);
+    let shine_delay_s = deterministic_delay_tenths(index * 17, 100);
+    let styles = format!(
+        "{}\n    :root {{\n      --size-height: {};\n      --size-width: {};\n      --i: {};\n    \
+         }}\n\n    .wrapper {{\n      --delay: calc(var(--animate-in-links-delay) + var(--i) * \
+         1.2s);\n    }}\n    @-moz-document url-prefix() {{\n      .wrapper {{ display: block; }}\n    \
+         }}\n\n    .link {{\n      font-family: 'Writer', Georgia, serif;\n      font-size: 12px;\n      \
+         display: flex;\n      justify-content: start;\n      align-items: center;\n      gap: 2px;\n    \
+         }}\n    .link__arrow {{\n      font-size: 9px;\n      position: relative;\n      \
+         inset-block-start: 0.5px;\n      animation-name: rotate;\n      animation-duration: 5s;\n      \
+         animation-timing-function: ease-in-out;\n      animation-iteration-count: infinite;\n      \
+         animation-delay: {};\n    }}\n    @keyframes rotate {{\n      0% {{ transform: rotate(0deg); \
+         }}\n      10%, 100% {{ transform: rotate(360deg); }}\n    }}\n",
+        shared_styles(font_data),
+        height_text,
+        width_text,
+        index,
+        arrow_delay_s,
+    );
+    let html = format!(
+        "<main class=\"wrapper\">\n      <a class=\"link fade-in\">\n        <div \
+         class=\"link__label shine\" style=\"animation-delay: {}\">{}</div>\n        <div \
+         class=\"link__arrow\">↗</div>\n      </a>\n    </main>",
+        shine_delay_s, label,
+    );
 
-    svg_document(Some(&width_px.to_string()), &height_px.to_string(), None, &styles, html)
+    svg_document(Some(&width_text), &height_text, None, &styles, &html)
 }
 
 pub fn render_main_svg(
