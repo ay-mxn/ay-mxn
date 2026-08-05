@@ -1,4 +1,5 @@
 use crate::{
+    content::IDENTITY,
     fonts::{FontData, font_faces_css},
     stats::StatsFile,
 };
@@ -13,10 +14,41 @@ const COLOR_DOT_BORDER: &str = "rgba(255,255,255,0.04)";
 const BREAKPOINT_MEDIUM_PX: u32 = 550;
 
 pub fn render_top_svg(font_data: &FontData, height_px: u32) -> String {
-    let styles = shared_styles(font_data);
-    let html = "TODO: implement top.svg render in Rust.";
+    let height_text = height_px.to_string();
+    let styles = format!(
+        "{}\n    :root {{ --size-height: {}; }}\n\n    .wrapper {{\n      display: flex;\n      \
+         justify-content: space-between;\n      align-items: center;\n      padding: 0 2px;\n    \
+         }}\n\n    .reach {{\n      --delay: var(--animate-in-links-delay);\n      white-space: \
+         nowrap;\n    }}\n    .reach-inner {{\n      font-family: 'Departure-Mono', monospace;\n      \
+         font-size: 9px;\n      opacity: 0.4;\n      display: flex;\n      align-items: center;\n      \
+         gap: 3px;\n    }}\n    .reach-dot {{\n      width: 3px;\n      height: 3px;\n      display: \
+         inline-block;\n      background: var(--color-text);\n    }}\n\n    .meta {{\n      --delay: \
+         var(--animate-in-org-delay);\n      display: flex;\n      align-items: baseline;\n      gap: \
+         12px;\n      flex-wrap: wrap;\n      justify-content: flex-end;\n    }}\n    .meta-item {{\n      \
+         display: flex;\n      align-items: baseline;\n      gap: 4px;\n      white-space: nowrap;\n    \
+         }}\n    .meta-label {{\n      font-family: 'Departure-Mono', monospace;\n      font-size: \
+         9px;\n      opacity: 0.4;\n    }}\n    .meta-val {{\n      font-family: 'Writer', Georgia, \
+         serif;\n      font-size: 11px;\n    }}\n    .meta-dot {{\n      width: 3px;\n      height: \
+         3px;\n      display: inline-block;\n      margin-right: 2px;\n      vertical-align: middle;\n      \
+         background: var(--color-text);\n    }}\n    .arabic {{ font-family: 'Arabic', serif; }}\n",
+        shared_styles(font_data),
+        height_text,
+    );
+    let html = format!(
+        "<div class=\"wrapper\">\n      <div class=\"reach fade-in\"><span \
+         class=\"reach-inner\"><span class=\"reach-dot\"></span>links</span></div>\n      <div \
+         class=\"meta fade-in\">\n        <span class=\"meta-item\">\n          <span \
+         class=\"meta-label\"><span class=\"meta-dot\"></span>name</span>\n          <span \
+         class=\"meta-val\">{} <span class=\"arabic\">⌊{}⌋</span></span>\n        </span>\n        \
+         <span class=\"meta-item\">\n          <span class=\"meta-label\"><span \
+         class=\"meta-dot\"></span>title</span>\n          <span class=\"meta-val\">{}</span>\n        \
+         </span>\n        <span class=\"meta-item\">\n          <span class=\"meta-label\"><span \
+         class=\"meta-dot\"></span>org</span>\n          <span class=\"meta-val\">{}</span>\n        \
+         </span>\n      </div>\n    </div>",
+        IDENTITY.name, IDENTITY.name_arabic, IDENTITY.title, IDENTITY.org,
+    );
 
-    svg_document(None, &height_px.to_string(), None, &styles, html)
+    svg_document(None, &height_text, None, &styles, &html)
 }
 
 pub fn render_link_svg(
@@ -138,4 +170,3 @@ fn deterministic_delay_hundredths(seed: usize, cycle_hundredths: usize) -> Strin
 }
 
 const _: () = assert!(BREAKPOINT_MEDIUM_PX > 0);
-
