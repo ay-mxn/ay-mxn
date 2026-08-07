@@ -20,8 +20,17 @@ pub fn fetch_contributions_html(username: &str, year: i32) -> io::Result<String>
     let url = format!(
         "https://github.com/users/{username}/contributions?from={year}-01-01&to={year}-12-31"
     );
+    fetch_html(username, &url)
+}
+
+pub fn fetch_last_twelve_months_html(username: &str) -> io::Result<String> {
+    let url = format!("https://github.com/users/{username}/contributions");
+    fetch_html(username, &url)
+}
+
+fn fetch_html(username: &str, url: &str) -> io::Result<String> {
     let user_agent = format!("{username}/readme");
-    let response = ureq::get(&url)
+    let response = ureq::get(url)
         .header("User-Agent", &user_agent)
         .header("Accept", "text/html")
         .call()
