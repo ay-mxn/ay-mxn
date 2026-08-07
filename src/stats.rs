@@ -62,7 +62,12 @@ pub fn build_stats_file(username: &str, now: OffsetDateTime) -> io::Result<Stats
             } else {
                 format!("{}-01-01T00:00:00.000Z", year + 1)
             },
-            days: scraped_year.days.iter().map(|day| day.level).rev().collect(),
+            days: scraped_year
+                .days
+                .iter()
+                .map(|day| day.level)
+                .rev()
+                .collect(),
         });
 
         for day in &scraped_year.days {
@@ -117,7 +122,8 @@ pub fn render_years(stats_file: &StatsFile) -> &[YearData] {
 }
 
 fn deserialize_stats_file(json_text: &str) -> io::Result<StatsFile> {
-    serde_json::from_str(json_text).map_err(|source| io::Error::new(io::ErrorKind::InvalidData, source))
+    serde_json::from_str(json_text)
+        .map_err(|source| io::Error::new(io::ErrorKind::InvalidData, source))
 }
 
 fn serialize_stats_file(stats_file: &StatsFile) -> io::Result<String> {

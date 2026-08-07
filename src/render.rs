@@ -476,4 +476,3 @@ const _: () = assert!(BREAKPOINT_MEDIUM_PX > 0);
 const _: () = assert!(DOT_ROWS > 0);
 const _: () = assert!(DOT_SIZE_PX > 0);
 const _: () = assert!(LABEL_HEIGHT_PX > 0);
-
