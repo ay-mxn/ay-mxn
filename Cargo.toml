@@ -9,6 +9,7 @@ overflow-checks = true
 [lints.rust]
 unsafe_op_in_unsafe_fn = "deny"
 unused_must_use = "deny"
+warnings = "deny"
 
 [lints.clippy]
 all = "deny"
