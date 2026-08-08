@@ -21,10 +21,10 @@ jobs:
         with:
           components: rustfmt
 
-      - name: Check Rust scaffold
-        run: cargo fmt --check && cargo check
+      - name: Check Rust crate
+        run: cargo fmt --check && cargo test
 
-      - name: Run migration placeholder
+      - name: Run Rust pipeline
         run: cargo run --release -- go
 
       - name: Commit and push updates
