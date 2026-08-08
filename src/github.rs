@@ -1,6 +1,10 @@
 use std::{collections::BTreeMap, io, sync::OnceLock};
 
 use regex::Regex;
+use ureq::{
+    Agent,
+    tls::{RootCerts, TlsConfig},
+};
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct DayData {
@@ -30,7 +34,8 @@ pub fn fetch_last_twelve_months_html(username: &str) -> io::Result<String> {
 
 fn fetch_html(username: &str, url: &str) -> io::Result<String> {
     let user_agent = format!("{username}/readme");
-    let response = ureq::get(url)
+    let response = github_agent()
+        .get(url)
         .header("User-Agent", &user_agent)
         .header("Accept", "text/html")
         .call()
@@ -40,6 +45,20 @@ fn fetch_html(username: &str, url: &str) -> io::Result<String> {
         .into_body()
         .read_to_string()
         .map_err(io::Error::other)
+}
+
+fn github_agent() -> &'static Agent {
+    static GITHUB_AGENT: OnceLock<Agent> = OnceLock::new();
+    GITHUB_AGENT.get_or_init(|| {
+        Agent::config_builder()
+            .tls_config(
+                TlsConfig::builder()
+                    .root_certs(RootCerts::PlatformVerifier)
+                    .build(),
+            )
+            .build()
+            .new_agent()
+    })
 }
 
 pub fn parse_contributions(html: &str) -> io::Result<Vec<DayData>> {
