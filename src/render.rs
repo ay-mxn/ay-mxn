@@ -116,19 +116,21 @@ pub fn render_main_svg(
 
     let height_text = height_px.to_string();
     let graph_height_px = layouts[0].height_px;
-    let total_graph_width_px = total_graph_width(&layouts);
+    let sequence_width_px = total_graph_width(&layouts);
+    let track_width_px = sequence_width_px * 2;
     let styles = main_styles(font_data, &height_text);
     let bio_html = render_bio_chars(BIO);
-    let years_html = render_years_html(years, &layouts, today_label);
+    let years_html = render_looped_years_html(years, &layouts, today_label);
     let html = format!(
         "<main class=\"wrapper\">\n      <article class=\"stats fade-in\">\n        <div \
          class=\"stats-title\"><span class=\"stats-dot\"></span>contributions</div>\n        {}\n      \
          </article>\n\n      <article class=\"intro\">\n        <p>{}</p>\n      </article>\n\n      \
-         <article class=\"graph\">\n        <div class=\"years\" style=\"--w: {}; --h: {};\">\n          \
+         <article class=\"graph\">\n        <div class=\"years\" style=\"--w: {}; --loop-w: {}; --h: {};\">\n          \
          {}\n        </div>\n      </article>\n    </main>",
         render_stat_rows(&stats_file.stats),
         bio_html,
-        total_graph_width_px,
+        track_width_px,
+        sequence_width_px,
         graph_height_px,
         years_html,
     );
@@ -160,15 +162,17 @@ fn main_styles(font_data: &FontData, height_text: &str) -> String {
          --delay: calc(var(--animate-in-copy-delay) + var(--i) * 5ms);\n    }}\n\n    @container (width > \
          {}px) {{\n      .intro {{ font-size: 14px; }}\n    }}\n\n    .graph {{\n      --delay: \
          var(--animate-in-graph-delay);\n      grid-column: 1 / 7;\n      grid-row: 2;\n    }}\n    \
-         .years {{\n      --_w: var(--w);\n      --_h: calc(var(--h) + var(--size-label-height));\n      \
-         display: flex;\n      gap: calc(var(--size-year-gap) * 1px);\n      contain: strict;\n      \
+         .years {{\n      --_w: var(--w);\n      --_loop-w: var(--loop-w);\n      --_h: calc(var(--h) + \
+         var(--size-label-height));\n      display: flex;\n      gap: 0;\n      contain: strict;\n      \
          inline-size: calc(var(--_w) * 1px);\n      block-size: calc(var(--_h) * 1px);\n      \
          will-change: transform;\n      backface-visibility: hidden;\n      transform: translateZ(0);\n      \
          animation-name: scroll, fade-in;\n      animation-timing-function: linear, ease-out;\n      \
          animation-duration: calc(30s + (var(--_w) * 0.06s)), 2.5s;\n      animation-fill-mode: both, \
-         both;\n      animation-delay: 2s, var(--animate-in-graph-delay);\n    }}\n    @keyframes scroll \
-         {{\n      0% {{ transform: translateX(0); }}\n      100% {{ transform: translateX(calc(-100% + \
-         100cqw)); }}\n    }}\n    .year {{\n      contain: strict;\n      content-visibility: auto;\n      \
+         both;\n      animation-delay: 2s, var(--animate-in-graph-delay);\n      animation-iteration-count: \
+         infinite, 1;\n    }}\n    @keyframes scroll {{\n      0% {{ transform: translateX(0); }}\n      \
+         100% {{ transform: translateX(calc(-1px * var(--_loop-w))); }}\n    }}\n    .years__sequence {{\n      \
+         display: flex;\n      gap: calc(var(--size-year-gap) * 1px);\n    }}\n    .year {{\n      contain: \
+         strict;\n      content-visibility: auto;\n      \
          inline-size: calc(var(--w) * 1px);\n      block-size: calc(var(--_h) * 1px);\n    }}\n    \
          .year__label {{\n      contain: strict;\n      block-size: calc(var(--size-label-height) * 1px);\n      \
          content-visibility: auto;\n      display: flex;\n      align-items: end;\n      font-size: 9px;\n      \
@@ -251,18 +255,25 @@ fn total_graph_width(layouts: &[YearLayout]) -> usize {
     total_width_px
 }
 
-fn render_years_html(years: &[YearData], layouts: &[YearLayout], today_label: &str) -> String {
+fn render_looped_years_html(years: &[YearData], layouts: &[YearLayout], today_label: &str) -> String {
     assert_eq!(
         years.len(),
         layouts.len(),
         "years and layouts must stay aligned",
     );
 
+    let sequence_html = render_year_sequence_html(years, layouts, today_label);
+    format!(
+        "<div class=\"years__sequence\">{}</div><div class=\"years__sequence\">{}</div>",
+        sequence_html, sequence_html,
+    )
+}
+
+fn render_year_sequence_html(years: &[YearData], layouts: &[YearLayout], today_label: &str) -> String {
     let mut html = String::new();
     for (year_index, (year, layout)) in years.iter().zip(layouts.iter()).enumerate() {
         html.push_str(&render_year_html(year, layout, year_index, today_label));
     }
-
     html
 }
 
@@ -476,3 +487,58 @@ const _: () = assert!(BREAKPOINT_MEDIUM_PX > 0);
 const _: () = assert!(DOT_ROWS > 0);
 const _: () = assert!(DOT_SIZE_PX > 0);
 const _: () = assert!(LABEL_HEIGHT_PX > 0);
+
+#[cfg(test)]
+mod tests {
+    use super::render_main_svg;
+    use crate::{
+        fonts::FontData,
+        stats::{StatsFile, SummaryStats, YearData},
+    };
+
+    #[test]
+    fn renders_graph_as_an_infinite_loop() {
+        let stats_file = sample_stats_file();
+        let svg = render_main_svg(&sample_font_data(), &stats_file, 440, "Sep 11, 2026");
+
+        assert!(svg.contains("animation-iteration-count: infinite;"));
+        assert_eq!(count_substring(&svg, "class=\"year year--"), 8);
+    }
+
+    fn sample_font_data() -> FontData {
+        FontData {
+            writer_woff2_base64: String::from("writer"),
+            departure_woff2_base64: String::from("departure"),
+            arabic_woff2_base64: String::from("arabic"),
+        }
+    }
+
+    fn sample_stats_file() -> StatsFile {
+        StatsFile {
+            years: vec![
+                sample_year("2026-01-01T00:00:00.000Z"),
+                sample_year("2025-01-01T00:00:00.000Z"),
+                sample_year("2024-01-01T00:00:00.000Z"),
+                sample_year("2023-01-01T00:00:00.000Z"),
+            ],
+            stats: SummaryStats {
+                week: 1,
+                month: 2,
+                year: 3,
+                total: 4,
+            },
+        }
+    }
+
+    fn sample_year(from: &str) -> YearData {
+        YearData {
+            from: String::from(from),
+            to: String::from("2027-01-01T00:00:00.000Z"),
+            days: vec![0, 1, 2, 3, 4, 0],
+        }
+    }
+
+    fn count_substring(haystack: &str, needle: &str) -> usize {
+        haystack.match_indices(needle).count()
+    }
+}
