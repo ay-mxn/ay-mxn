@@ -24,7 +24,7 @@ pub const LINKS: &[Link] = &[
     },
     Link {
         label: "linkedin",
-        url: "https://linkedin.com/in/aymanbolad",
+        url: "https://linkedin.com/in/rust-engineer",
     },
     Link {
         label: "website",
