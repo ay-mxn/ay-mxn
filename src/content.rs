@@ -14,7 +14,7 @@ pub struct Identity {
 
 pub const BIO: &str = "researcher, exploring the world of molecular systems and genomic \
 landscapes. enjoys blasting through bytes, mapping mutations, pipelining pathways, and \
-skipping sequences. was once a\nPhotographer [مصور].\n\ncurrently sifting through data at \
+skipping sequences.\nwas once a Photographer [مصور].\n\ncurrently sifting through data at \
 lilly.\npreviously blessed vehicles with eyes and ears at vail.";
 
 pub const LINKS: &[Link] = &[
