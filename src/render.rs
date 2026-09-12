@@ -255,7 +255,11 @@ fn total_graph_width(layouts: &[YearLayout]) -> usize {
     total_width_px
 }
 
-fn render_looped_years_html(years: &[YearData], layouts: &[YearLayout], today_label: &str) -> String {
+fn render_looped_years_html(
+    years: &[YearData],
+    layouts: &[YearLayout],
+    today_label: &str,
+) -> String {
     assert_eq!(
         years.len(),
         layouts.len(),
@@ -269,7 +273,11 @@ fn render_looped_years_html(years: &[YearData], layouts: &[YearLayout], today_la
     )
 }
 
-fn render_year_sequence_html(years: &[YearData], layouts: &[YearLayout], today_label: &str) -> String {
+fn render_year_sequence_html(
+    years: &[YearData],
+    layouts: &[YearLayout],
+    today_label: &str,
+) -> String {
     let mut html = String::new();
     for (year_index, (year, layout)) in years.iter().zip(layouts.iter()).enumerate() {
         html.push_str(&render_year_html(year, layout, year_index, today_label));

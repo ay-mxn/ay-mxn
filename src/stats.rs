@@ -3,7 +3,9 @@ use std::{fs, io, path::Path};
 use serde::{Deserialize, Serialize};
 use time::{Date, Month, OffsetDateTime, Weekday};
 
-use crate::github::{ScrapedYear, fetch_contributions_html, parse_contributions, parse_heading_total};
+use crate::github::{
+    ScrapedYear, fetch_contributions_html, parse_contributions, parse_heading_total,
+};
 
 pub const START_YEAR: i32 = 2024;
 
@@ -222,7 +224,8 @@ fn month_number(month: Month) -> u8 {
 #[cfg(test)]
 mod tests {
     use super::{
-        START_YEAR, build_stats_file_from_scraped_years, format_date, format_month_start, most_recent_sunday,
+        START_YEAR, build_stats_file_from_scraped_years, format_date, format_month_start,
+        most_recent_sunday,
     };
     use crate::github::{DayData, ScrapedYear};
     use time::{Date, Month, OffsetDateTime, Time};
@@ -283,8 +286,8 @@ mod tests {
             },
         ];
 
-        let stats_file =
-            build_stats_file_from_scraped_years(&scraped_years, now).expect("stats file should build");
+        let stats_file = build_stats_file_from_scraped_years(&scraped_years, now)
+            .expect("stats file should build");
 
         assert_eq!(stats_file.stats.total, 15);
     }
