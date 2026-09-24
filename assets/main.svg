@@ -264,22 +264,22 @@
       <article class="stats fade-in">
         <div class="stats-title"><span class="stats-dot"></span>contributions</div>
         <div class="stat-row">
-          <span class="stat-num shine" style="animation-delay: 7s">147</span>
+          <span class="stat-num shine" style="animation-delay: 7s">151</span>
           <span class="stat-line"></span>
           <span class="stat-label">this week</span>
         </div>
 <div class="stat-row">
-          <span class="stat-num shine" style="animation-delay: 8.5s">326</span>
+          <span class="stat-num shine" style="animation-delay: 8.5s">330</span>
           <span class="stat-line"></span>
           <span class="stat-label">this month</span>
         </div>
 <div class="stat-row">
-          <span class="stat-num shine" style="animation-delay: 10s">1,433</span>
+          <span class="stat-num shine" style="animation-delay: 10s">1,437</span>
           <span class="stat-line"></span>
           <span class="stat-label">this year</span>
         </div>
 <div class="stat-row">
-          <span class="stat-num shine" style="animation-delay: 11.5s">3,362</span>
+          <span class="stat-num shine" style="animation-delay: 11.5s">3,366</span>
           <span class="stat-line"></span>
           <span class="stat-label">all time</span>
         </div>
